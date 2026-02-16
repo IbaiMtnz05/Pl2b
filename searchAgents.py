@@ -374,7 +374,7 @@ def cornersHeuristic(state, problem:CornersProblem):
             distances.append(distance)
 
     if distances:
-        return min(distances)
+        return max(distances)
     else:
         return 0
 
@@ -468,9 +468,21 @@ def foodHeuristic(state, problem):
     Subsequent calls to this heuristic can access
     problem.heuristicInfo['wallCount']
     """
-    position, foodGrid = state
     "*** YOUR CODE HERE ***"
-    return 0
+    distances = []
+    pos, foodGrid = state
+    foodGrid = foodGrid.asList()
+    x, y = pos
+    for food in foodGrid:
+        if not food == pos:
+            distance = abs(x - food[0]) + abs(y - food[1])
+            distances.append(distance)
+
+    if distances:
+
+        return max(distances)
+    else:
+        return 0
 
 class ClosestDotSearchAgent(SearchAgent):
     "Search for all food using a sequence of searches"
