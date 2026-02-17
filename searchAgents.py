@@ -469,19 +469,25 @@ def foodHeuristic(state, problem):
     problem.heuristicInfo['wallCount']
     """
     "*** YOUR CODE HERE ***"
-    distances = []
+    distances = [[],[]] # First list, distances from pacman to food. Second list, distances from food to food
     pos, foodGrid = state
     foodGrid = foodGrid.asList()
     x, y = pos
     for food in foodGrid:
         if not food == pos:
-            distance = abs(x - food[0]) + abs(y - food[1])
-            distances.append(distance)
+            distance0 = abs(x - food[0]) + abs(y - food[1])
+            distances[0].append(distance0)
 
-    if distances:
+        for otherFood in foodGrid:
+            if otherFood != food:
+                distance1 = abs(otherFood[0] - food[0]) + abs(otherFood[1] - food[1]) 
+                distances[1].append(distance1)
 
-        return max(distances)
-    else:
+    if distances[0] and distances[1]:
+        return min(distances[0]) + max(distances[1])
+    elif distances[0]: # If there is just one food left
+        return min(distances[0])
+    else: # Win state
         return 0
 
 class ClosestDotSearchAgent(SearchAgent):
