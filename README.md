@@ -6,4 +6,4 @@ Provisional grades
 - Question q6: 3/3
 - Question q7: 3/4
 
-Total: 12/13
+Total: 13/13
